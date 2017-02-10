@@ -20,10 +20,14 @@ let net = new brain.NeuralNetwork();
   //         };
   //       });
 
-  trainingSet = [{input: [0, 0], output: [0]},
-		           {input: [0, 1], output: [1]},
-		           {input: [1, 0], output: [1]},
-		           {input: [1, 1], output: [0]}
+  trainingSet = [{input: [0, 0, 0], output: {1:1}},
+		           {input: [0, 0,1], output: {2:1}},
+		           {input: [0, 1,0], output: {3:1}},
+		           {input: [0, 1, 1], output: {4:1}},
+		           {input: [1, 0, 0], output: {5:1}},
+		           {input: [1, 0, 1], output: {6:1}},
+		           {input: [1, 1, 0], output: {7:1}},
+		           {input: [1, 1, 1], output: {8:1}}
            	];
       // console.log('trainingSet', JSON.stringify(trainingSet));
       console.timeEnd('trainingSet');

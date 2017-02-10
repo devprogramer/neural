@@ -5,7 +5,7 @@ const brain = require('brain.js'),
 
 var net = new brain.NeuralNetwork();
 
-const set = mnist.set(0, 0);
+const set = mnist.set(1, 0, 1);
 
 //const trainingSet = set.training;
 const testSet = set.test;
@@ -13,11 +13,20 @@ const testSet = set.test;
 net.fromJSON(require('./data/brain'));
 
 
-var output = net.run(testSet[0].input);
+var output = net.run([1,0,1]);
 
 
-
+var maxRes = 0;
+var res = null;
+for (var i in output){
+	if(output[i]> maxRes){
+		maxRes = output[i]; 
+		res = i;
+	}
+}
 
 
 console.log(testSet[0].output);
-console.log(softmax(output));
+console.log(maxRes, res);
+// console.log(softmax(output));
+
