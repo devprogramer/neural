@@ -127,8 +127,8 @@ const favortiteModelCnt = modelCnt;
         
         net.train(trainingSet,
           {
-            errorThresh: 0.01,  // error threshold to reach
-            iterations: 5,   // maximum training iterations
+            errorThresh: 0.001,  // error threshold to reach
+            iterations: 200,   // maximum training iterations
             log: true,           // console.log() progress periodically
             logPeriod: 1,       // number of iterations between logging
             learningRate: 0.3    // learning rate

@@ -25,7 +25,7 @@ from pybrain.supervised.trainers import BackpropTrainer
 # convert -size 600x400 tile:tile.jpg  canvas2.jpg
 
 
-sourcePhotoDir = os.path.dirname(os.path.abspath(__file__))+"/../public/auto/audi/"
+sourcePhotoDir = os.path.dirname(os.path.abspath(__file__))+"/../auto/mitsubishi/"
 #resultPhotoDir=os.path.dirname(os.path.abspath(__file__))+"/../public/photos/"
 
 # construct the argument parse and parse the arguments
@@ -43,6 +43,15 @@ imgBaseName = os.path.basename(imgBasePath)
 
 # filePath =  sourcePhotoDir+args["image"];
 
+
+# print sourcePhotoDir+args["image"];
+# exit();
+
+if not os.path.exists(sourcePhotoDir +"tmp/"):
+	os.makedirs(sourcePhotoDir +"tmp/")
+
+
+
 with Image(filename=sourcePhotoDir+args["image"]) as img:
     for  k,v in  img.metadata.items():
         if k.startswith('exif:Orientation') :
@@ -54,13 +63,13 @@ with Image(filename=sourcePhotoDir+args["image"]) as img:
                 elif int(v) == 6 :
                     img.rotate(90)
                 img.strip();
-    img.resize( 160, 120 )
-    img.save(filename=sourcePhotoDir +""+ imgBaseName + "-tmp.jpg")
+    img.resize( 40, 30 )
+    img.save(filename=sourcePhotoDir +"tmp/"+ imgBaseName + "-tmp.jpg")
 
 
 
 
-image = cv2.imread(sourcePhotoDir+imgBaseName + "-tmp.jpg")
+image = cv2.imread(sourcePhotoDir+"tmp/"+imgBaseName + "-tmp.jpg")
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 imgHeight, imgWidth, channels = image.shape
@@ -70,10 +79,15 @@ imgHeight, imgWidth, channels = image.shape
 
 
 ######################################  1 var ############################
-gray = cv2.GaussianBlur(gray,(5,5),0)
+# gray = cv2.GaussianBlur(gray,(5,5),0)
+medianbluered = cv2.medianBlur(gray,3)
 
-ret,thresh = cv2.threshold(gray, 200,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+ret,thresh = cv2.threshold(medianbluered, 200,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
+thresh = cv2.adaptiveThreshold(medianbluered,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+            cv2.THRESH_BINARY,11,3)
+
+cv2.imwrite(sourcePhotoDir +"det/"+ imgBaseName + "opencv-thrash.jpg", thresh);
 
 imArr = [];
 for y in thresh.tolist() :
@@ -84,7 +98,10 @@ for y in thresh.tolist() :
         imArr.append(p)
 
 
-with open(sourcePhotoDir +"det/"+ imgBaseName + ".json", 'w') as outfile:
+
+if not os.path.exists(sourcePhotoDir +"json/"):
+	os.makedirs(sourcePhotoDir +"json/")
+with open(sourcePhotoDir +"json/"+ imgBaseName + ".json", 'w') as outfile:
     json.dump(imArr, outfile)
 
 
