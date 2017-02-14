@@ -23,6 +23,38 @@ const favortiteModelCnt = modelCnt;
     //           }))
     //         };
     //       });
+async function test(){
+
+  var res = await request();
+
+  /* розрахунки результату */
+
+  /* insert in mysql */
+
+
+
+
+}
+
+    let requestArr = [];
+    [1,2,3,4,5,6].forEach(item=>{
+
+        requestArr.push( (function(i){
+
+          test()
+
+        })(item)  ); 
+
+
+
+    })
+
+
+    result = await Promise.all(requestArr);
+
+
+
+
     var mainDir = '../auto/';
     var dirs = await afs.readdir(mainDir)
     var autosFiles = {};

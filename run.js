@@ -5,7 +5,8 @@ const brain = require('brain.js'),
 
       const afs = require("async-file");
 
-
+      const marks = {84:"фолксв", 9:"бмв", 24:"ford", 29:"hundai", 52:"mitsubishi", 
+      					79:"toyota", 48:"mercedes", 23:"fiat", 6:"audi", 55:"nissan"};
 
 (async() => {
 
@@ -41,6 +42,4 @@ const brain = require('brain.js'),
 
 
 
-
-// console.log(softmax(output));
 
