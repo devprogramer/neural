@@ -82,7 +82,7 @@ imgHeight, imgWidth, channels = image.shape
 # gray = cv2.GaussianBlur(gray,(5,5),0)
 medianbluered = cv2.medianBlur(gray,3)
 
-ret,thresh = cv2.threshold(medianbluered, 200,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+# ret,thresh = cv2.threshold(medianbluered, 200,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
 thresh = cv2.adaptiveThreshold(medianbluered,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
             cv2.THRESH_BINARY,11,3)
